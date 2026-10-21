@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Выход{% endblock %}
+{% block content %}
+<div class="card narrow center">
+  <h1>До свидания!</h1>
+  <p class="muted">Вы вышли из информационной системы. Сеанс завершён.</p>
+  <a class="btn" href="{{ url_for('bp_auth.auth_index') }}">Войти снова</a>
+</div>
+{% endblock %}

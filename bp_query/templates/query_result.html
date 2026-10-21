@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}{{ query.title }}{% endblock %}
+{% block content %}
+<h1>{{ query.title }}</h1>
+{% if subtitle %}<p class="muted">{{ subtitle }}</p>{% endif %}
+{% if header %}
+<div class="facts">
+  <div><span>Клиент-отправитель</span><b>{{ header.client_name }}</b></div>
+  <div><span>Транспорт</span><b>{{ header.vehicle }}</b></div>
+  <div><span>Экспедитор</span><b>{{ header.forwarder }}</b></div>
+  <div><span>Общий вес, кг</span><b>{{ header.total_weight }}</b></div>
+</div>
+{% endif %}
+<div class="table-wrap">
+  <table>
+    <thead><tr>{% for key, caption in query.columns %}<th>{{ caption }}</th>{% endfor %}</tr></thead>
+    <tbody>
+      {% for row in rows %}
+        <tr>{% for key, caption in query.columns %}<td>{{ row[key] }}</td>{% endfor %}</tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<p class="muted">Найдено записей: {{ rows|length }}</p>
+<div class="actions">
+  <a class="btn" href="{{ request.path }}">Новый запрос</a>
+  <a class="btn btn-secondary" href="{{ url_for('bp_query.query_menu') }}">← К меню запросов</a>
+</div>
+{% endblock %}

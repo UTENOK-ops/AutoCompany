@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %} · Автотранспортная компания</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="{{ url_for('main_menu') }}">🚚 Автотранспортная компания</a>
+  {% if session.get('user_id') %}
+  <div class="user">
+    <span>{{ session.get('full_name') }}</span>
+    <span class="badge">{{ group_names.get(session.get('user_group'), session.get('user_group')) }}</span>
+    <a class="btn btn-small" href="{{ url_for('exit_system') }}">Выход</a>
+  </div>
+  {% endif %}
+</header>
+<main class="container">
+  {% block content %}{% endblock %}
+</main>
+<footer class="footer">ИС «Автотранспортная компания» · вариант 15</footer>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Работа с запросами{% endblock %}
+{% block content %}
+<h1>Работа с запросами</h1>
+<div class="list">
+  {% for name, title, description in queries %}
+    {% set endpoint = 'bp_query.' ~ name %}
+    {% if has_access(endpoint) %}
+      <a class="list-item" href="{{ url_for(endpoint) }}"><b>{{ loop.index }}. {{ title }}</b><span>{{ description }}</span></a>
+    {% else %}
+      <div class="list-item disabled"><b>🔒 {{ loop.index }}. {{ title }}</b><span>Недоступно для вашей группы</span></div>
+    {% endif %}
+  {% endfor %}
+</div>
+<div class="actions"><a class="btn btn-secondary" href="{{ url_for('main_menu') }}">← В главное меню</a></div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{
+  "director": [
+    "bp_query",
+    "bp_report"
+  ],
+  "dispatcher": [
+    "bp_query.query_menu",
+    "bp_query.waybills_by_period",
+    "bp_query.waybill_items",
+    "bp_query.vehicles_by_capacity",
+    "bp_query.staff_by_position"
+  ],
+  "manager": [
+    "bp_query.query_menu",
+    "bp_query.clients_by_zone",
+    "bp_query.waybills_by_period",
+    "bp_query.waybill_items",
+    "bp_query.client_year_weight"
+  ]
+}

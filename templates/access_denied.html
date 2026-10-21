@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Доступ запрещён{% endblock %}
+{% block content %}
+<div class="card narrow center">
+  <h1>Доступ запрещён</h1>
+  <p class="muted">У группы «{{ group_names.get(session.get('user_group'), session.get('user_group')) }}»
+    нет прав на этот вариант использования.</p>
+  <a class="btn" href="{{ url_for('main_menu') }}">В главное меню</a>
+</div>
+{% endblock %}

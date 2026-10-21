@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Работа с отчётами{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Работа с отчётами</h1>
+  <p class="muted">Раздел доступен только директору. Отчёты (хранимые процедуры с ежемесячной
+    статистикой перевозок) будут реализованы в следующих лабораторных работах.</p>
+  <div class="actions"><a class="btn btn-secondary" href="{{ url_for('main_menu') }}">← В главное меню</a></div>
+</div>
+{% endblock %}
