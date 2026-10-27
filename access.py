@@ -1,11 +1,9 @@
-"""Декораторы проверки авторизации и прав доступа (ЛР2)."""
 from functools import wraps
 
 from flask import session, redirect, url_for, request, current_app, render_template
 
 
 def login_required(func):
-    """Пускает к функции только авторизованного пользователя (есть user_id в сессии)."""
     @wraps(func)
     def wrapper(*args, **kwargs):
         if 'user_id' in session:
@@ -16,12 +14,6 @@ def login_required(func):
 
 
 def has_access(user_group: str, endpoint: str) -> bool:
-    """
-    Проверка по словарю доступа db_access (отображение системной
-    диаграммы вариантов использования): группа -> список разрешённых
-    blueprint'ов целиком ("bp_query") или отдельных обработчиков
-    ("bp_query.clients_by_zone").
-    """
     access = current_app.config['db_access']
     allowed = access.get(user_group, [])
     blueprint_name = endpoint.split('.')[0]
@@ -29,7 +21,6 @@ def has_access(user_group: str, endpoint: str) -> bool:
 
 
 def group_required(func):
-    """Пускает к функции только пользователя, чьей группе она разрешена."""
     @wraps(func)
     def wrapper(*args, **kwargs):
         if 'user_id' not in session:

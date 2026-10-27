@@ -1,4 +1,3 @@
-"""Blueprint «Работа с отчётами» (будет реализован в следующих лабораторных работах)."""
 from flask import Blueprint, render_template
 
 from access import group_required

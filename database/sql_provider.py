@@ -1,14 +1,7 @@
-"""SQL-провайдер: загружает тексты SQL-запросов из .sql файлов."""
 import os
 
 
 class SQLProvider:
-    """
-    Читает все .sql файлы из каталога и хранит их по имени файла.
-    Параметры подставляются не здесь, а драйвером БД
-    (плейсхолдеры вида %(name)s) - это защищает от SQL-инъекций.
-    """
-
     def __init__(self, file_path: str):
         self.scripts = {}
         for file_name in os.listdir(file_path):

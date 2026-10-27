@@ -1,4 +1,3 @@
-"""Модель варианта использования «Работа с запросами»."""
 from dataclasses import dataclass, field
 from typing import Optional
 
@@ -13,7 +12,6 @@ class QueryResult:
 
 
 def model_route(db_config: dict, sql: str, params: Optional[dict] = None) -> QueryResult:
-    """Выполняет SQL-запрос и упаковывает результат для контроллера."""
     try:
         result, _ = select_list(db_config, sql, params)
     except ValueError as err:

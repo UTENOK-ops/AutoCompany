@@ -1,4 +1,3 @@
-"""Blueprint «Авторизация» внутренних пользователей."""
 import os
 
 from flask import Blueprint, render_template, request, session, redirect, url_for, current_app

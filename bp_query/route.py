@@ -1,4 +1,3 @@
-"""Blueprint «Работа с запросами»."""
 import os
 from datetime import date
 

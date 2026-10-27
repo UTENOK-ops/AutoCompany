@@ -1,17 +1,8 @@
-"""Контекстный менеджер для работы с базой данных PostgreSQL."""
 import psycopg2
 from psycopg2 import OperationalError
 
 
 class DBContextManager:
-    """
-    Открывает соединение и курсор при входе в блок with
-    и корректно закрывает их при выходе.
-
-    with DBContextManager(db_config) as cursor:
-        cursor.execute(sql)
-    """
-
     def __init__(self, db_config: dict):
         self.db_config = db_config
         self.conn = None
@@ -36,5 +27,4 @@ class DBContextManager:
             self.conn.commit()
         self.cursor.close()
         self.conn.close()
-        # True - исключение обработано и дальше не пробрасывается
         return True
