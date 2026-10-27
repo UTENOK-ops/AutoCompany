@@ -5,22 +5,22 @@
 <p class="muted">Выберите вариант использования.</p>
 <div class="menu-grid">
   {% set items = [
-      ('bp_query.query_menu',  'Работа с запросами', 'Клиенты, накладные, транспорт, персонал и статистика перевозок', '🔎'),
-      ('bp_report.report_menu', 'Работа с отчётами',  'Отчёты о работе компании за период', '📊'),
+      ('bp_query.query_menu',  'Работа с запросами', 'Клиенты, накладные, транспорт, персонал и статистика перевозок'),
+      ('bp_report.report_menu', 'Работа с отчётами',  'Отчёты о работе компании за период'),
   ] %}
-  {% for endpoint, title, text, icon in items %}
+  {% for endpoint, title, text in items %}
     {% if has_access(endpoint) %}
       <a class="menu-item" href="{{ url_for(endpoint) }}">
-        <span class="icon">{{ icon }}</span><b>{{ title }}</b><span>{{ text }}</span>
+        <b>{{ title }}</b><span>{{ text }}</span>
       </a>
     {% else %}
       <div class="menu-item disabled" title="Недоступно для вашей группы">
-        <span class="icon">🔒</span><b>{{ title }}</b><span>Недоступно для вашей группы</span>
+        <b>{{ title }}</b><span>Недоступно для вашей группы</span>
       </div>
     {% endif %}
   {% endfor %}
   <a class="menu-item exit" href="{{ url_for('exit_system') }}">
-    <span class="icon">🚪</span><b>Выход</b><span>Завершить работу с системой</span>
+    <b>Выход</b><span>Завершить работу с системой</span>
   </a>
 </div>
 {% endblock %}

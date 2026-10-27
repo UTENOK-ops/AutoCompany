@@ -8,7 +8,7 @@
 </head>
 <body>
 <header class="topbar">
-  <a class="brand" href="{{ url_for('main_menu') }}">🚚 Автотранспортная компания</a>
+  <a class="brand" href="{{ url_for('main_menu') }}">Автотранспортная компания</a>
   {% if session.get('user_id') %}
   <div class="user">
     <span>{{ session.get('full_name') }}</span>
@@ -20,6 +20,6 @@
 <main class="container">
   {% block content %}{% endblock %}
 </main>
-<footer class="footer">ИС «Автотранспортная компания» · вариант 15</footer>
+<footer class="footer">«Автотранспортная компания»</footer>
 </body>
 </html>
