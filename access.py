@@ -19,18 +19,15 @@ def has_access(user_group: str, endpoint: str) -> bool:
     access = current_app.config['db_access']
     blueprint_name = endpoint.split('.')[0]
 
-    # 1. Сначала проверяем конкретные эндпоинты (они в приоритете)
     endpoints = access.get('endpoints', {})
     if endpoint in endpoints:
         return user_group in endpoints[endpoint]
 
-    # 2. Если эндпоинта нет в списке, проверяем доступ ко всему блюпринту
     blueprints = access.get('blueprints', {})
     if blueprint_name in blueprints:
         return user_group in blueprints[blueprint_name]
 
     return False
-
 
 def group_required(func):
     @wraps(func)

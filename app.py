@@ -2,33 +2,28 @@ import json
 import os
 from flask import Flask, render_template, session, redirect, url_for
 
-# 1. Импорты блюпринтов и декораторов
 from access import login_required, has_access
 from bp_auth.route import blueprint_auth
 from bp_query.route import blueprint_query
 from bp_report.route import blueprint_report
-from bp_business.route import blueprint_business  # Импорт нового блюпринта
+from bp_business.route import blueprint_business  
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# 2. Создание приложения
 app = Flask(__name__)
 app.secret_key = 'transport_company_secret_key'
 
-# 3. Загрузка конфигураций
 with open(os.path.join(BASE_DIR, 'data_files', 'db_config.json'), encoding='utf-8') as f:
     app.config['db_config'] = json.load(f)
 with open(os.path.join(BASE_DIR, 'data_files', 'db_access.json'), encoding='utf-8') as f:
     app.config['db_access'] = json.load(f)
 
-# 4. Регистрация блюпринтов
+
 app.register_blueprint(blueprint_auth, url_prefix='/auth')
 app.register_blueprint(blueprint_query, url_prefix='/query')
 app.register_blueprint(blueprint_report, url_prefix='/report')
-# ВСТАВЛЯЕМ СЮДА:
 app.register_blueprint(blueprint_business, url_prefix='/business')
 
-# 5. Глобальные функции и переменные для шаблонов
 app.jinja_env.globals['has_access'] = lambda endpoint: has_access(session.get('user_group'), endpoint)
 
 GROUP_NAMES = {
@@ -38,7 +33,6 @@ GROUP_NAMES = {
 }
 app.jinja_env.globals['group_names'] = GROUP_NAMES
 
-# 6. Главные маршруты
 @app.route('/')
 @login_required
 def main_menu():
@@ -54,6 +48,5 @@ def page_not_found(_):
     return render_template('message.html', title='Страница не найдена',
                            message='Такой страницы нет в системе.'), 404
 
-# 7. Запуск
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5001, debug=True)
