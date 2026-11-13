@@ -1,6 +1,7 @@
 import json
 import os
 from flask import Flask, render_template, session, redirect, url_for
+from extensions import cache # импорт кэша
 
 from access import login_required, has_access
 from bp_auth.route import blueprint_auth
@@ -12,6 +13,18 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
 app.secret_key = 'transport_company_secret_key'
+
+app.config['CACHE_TYPE'] = 'RedisCache'
+app.config['CACHE_REDIS_URL'] = 'redis://localhost:6379/0'
+app.config['CACHE_DEFAULT_TIMEOUT'] = 300
+
+cache.init_app(app)
+
+from access import login_required, has_access
+from bp_auth.route import blueprint_auth
+from bp_query.route import blueprint_query
+from bp_report.route import blueprint_report
+from bp_business.route import blueprint_business
 
 with open(os.path.join(BASE_DIR, 'data_files', 'db_config.json'), encoding='utf-8') as f:
     app.config['db_config'] = json.load(f)

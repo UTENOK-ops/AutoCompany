@@ -7,6 +7,8 @@ from access import group_required
 from database.sql_provider import SQLProvider
 from bp_query.model_route import model_route
 
+from extensions import cache
+
 blueprint_query = Blueprint('bp_query', __name__, template_folder='templates')
 provider = SQLProvider(os.path.join(os.path.dirname(__file__), 'sql'))
 
@@ -193,7 +195,10 @@ def staff_by_position():
 
 @blueprint_query.route('/year-weight')
 @group_required
+@cache.memoize(timeout=600)
 def client_year_weight():
+    query = QUERIES['client_year_weight']
+    res = run('client_year_weight.sql')
     query = QUERIES['client_year_weight']
     res = run('client_year_weight.sql')
     if not res.status:

@@ -6,6 +6,7 @@ from database.sql_provider import SQLProvider
 from database.select import select_list
 from database.modify import modify_db
 
+from extensions import cache
 blueprint_business = Blueprint('bp_business', __name__, template_folder='templates')
 provider = SQLProvider(os.path.join(os.path.dirname(__file__), 'sql'))
 
@@ -50,7 +51,7 @@ def create_waybill():
         })
 
         modify_db(db_config, provider.get('update_weight.sql'), {'waybill_id': waybill_id})
-
+        cache.clear()
         return render_template('business_success.html', waybill_id=waybill_id)
 
     except Exception as e:
