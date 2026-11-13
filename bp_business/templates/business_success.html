@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Успех{% endblock %}
+{% block content %}
+<div class="card narrow center">
+    <h1>Накладная оформлена!</h1>
+    <p class="muted">Система успешно создала документ.</p>
+    <h2>Номер накладной: <b>№ {{ waybill_id }}</b></h2>
+    
+    <div class="actions" style="justify-content: center;">
+        <a class="btn" href="{{ url_for('bp_business.create_waybill') }}">Создать ещё одну</a>
+        <a class="btn btn-secondary" href="{{ url_for('main_menu') }}">В главное меню</a>
+    </div>
+</div>
+{% endblock %}

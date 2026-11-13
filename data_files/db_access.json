@@ -1,20 +1,17 @@
 {
-  "director": [
-    "bp_query",
-    "bp_report"
-  ],
-  "dispatcher": [
-    "bp_query.query_menu",
-    "bp_query.waybills_by_period",
-    "bp_query.waybill_items",
-    "bp_query.vehicles_by_capacity",
-    "bp_query.staff_by_position"
-  ],
-  "manager": [
-    "bp_query.query_menu",
-    "bp_query.clients_by_zone",
-    "bp_query.waybills_by_period",
-    "bp_query.waybill_items",
-    "bp_query.client_year_weight"
-  ]
+  "blueprints": {
+    "bp_query":    ["director", "dispatcher", "manager"],
+    "bp_report":   ["director"],
+    "bp_business": ["director", "dispatcher"]
+  },
+  "endpoints": {
+    "bp_query.query_menu":            ["director", "dispatcher", "manager"],
+    "bp_query.clients_by_zone":       ["director", "manager"],
+    "bp_query.waybills_by_period":    ["director", "dispatcher", "manager"],
+    "bp_query.waybill_items":         ["director", "dispatcher", "manager"],
+    "bp_query.vehicles_by_capacity":  ["director", "dispatcher"],
+    "bp_query.staff_by_position":     ["director", "dispatcher"],
+    "bp_query.client_year_weight":    ["director", "manager"],
+    "bp_business.create_waybill":     ["director", "dispatcher"]
+  }
 }

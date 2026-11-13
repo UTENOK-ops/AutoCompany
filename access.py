@@ -8,16 +8,28 @@ def login_required(func):
     def wrapper(*args, **kwargs):
         if 'user_id' in session:
             return func(*args, **kwargs)
-        # не авторизован - отправляем на форму входа
         return redirect(url_for('bp_auth.auth_index'))
     return wrapper
 
 
 def has_access(user_group: str, endpoint: str) -> bool:
+    if not user_group:
+        return False
+        
     access = current_app.config['db_access']
-    allowed = access.get(user_group, [])
     blueprint_name = endpoint.split('.')[0]
-    return blueprint_name in allowed or endpoint in allowed
+
+    # 1. Сначала проверяем конкретные эндпоинты (они в приоритете)
+    endpoints = access.get('endpoints', {})
+    if endpoint in endpoints:
+        return user_group in endpoints[endpoint]
+
+    # 2. Если эндпоинта нет в списке, проверяем доступ ко всему блюпринту
+    blueprints = access.get('blueprints', {})
+    if blueprint_name in blueprints:
+        return user_group in blueprints[blueprint_name]
+
+    return False
 
 
 def group_required(func):

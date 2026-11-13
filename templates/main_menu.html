@@ -6,7 +6,8 @@
 <div class="menu-grid">
   {% set items = [
       ('bp_query.query_menu',  'Работа с запросами', 'Клиенты, накладные, транспорт, персонал и статистика перевозок'),
-      ('bp_report.report_menu', 'Работа с отчётами',  'Отчёты о работе компании за период'),
+      ('bp_business.create_waybill', 'Оформление накладной', 'Основной бизнес-процесс: создание путевого листа'),
+      ('bp_report.report_menu', 'Работа с отчётами',  'Отчёты о работе компании за период')
   ] %}
   {% for endpoint, title, text in items %}
     {% if has_access(endpoint) %}

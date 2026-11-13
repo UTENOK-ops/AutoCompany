@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Оформление накладной{% endblock %}
+{% block content %}
+<div class="card narrow">
+    <h1>Оформление накладной</h1>
+    <p class="muted">Выберите данные для создания путевого листа.</p>
+    
+    {% if error_message %}<div class="alert">{{ error_message }}</div>{% endif %}
+    
+    <form method="post" class="form">
+        <label>Клиент
+            <select name="contract_num" required>
+                <option value="" disabled selected>Выберите клиента</option>
+                {% for c in clients %}
+                <option value="{{ c.id }}">{{ c.name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label>Автомобиль
+            <select name="vehicle_id" required>
+                <option value="" disabled selected>Выберите авто</option>
+                {% for v in vehicles %}
+                <option value="{{ v.id }}">{{ v.name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label>Экспедитор
+            <select name="forwarder_id" required>
+                <option value="" disabled selected>Выберите экспедитора</option>
+                {% for s in staff %}
+                <option value="{{ s.id }}">{{ s.name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label>Груз
+            <select name="cargo_id" required>
+                <option value="" disabled selected>Выберите груз</option>
+                {% for c in cargos %}
+                <option value="{{ c.id }}">{{ c.name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label>Количество
+            <input type="number" name="quantity" min="1" required>
+        </label>
+
+        <button type="submit" class="btn">Оформить накладную</button>
+    </form>
+    <div class="actions"><a class="btn btn-secondary" href="{{ url_for('main_menu') }}">← В главное меню</a></div>
+</div>
+{% endblock %}
