@@ -195,17 +195,23 @@ def staff_by_position():
 
 @blueprint_query.route('/year-weight')
 @group_required
-@cache.memoize(timeout=600)
 def client_year_weight():
     query = QUERIES['client_year_weight']
-    res = run('client_year_weight.sql')
-    query = QUERIES['client_year_weight']
-    res = run('client_year_weight.sql')
-    if not res.status:
-        return render_template('message.html', title=query['title'],
-                               message=res.error_message)
-    rows = res.result
+    
+    cache_obj = current_app.extensions['cache']
+    rows = cache_obj.get('year_weight_data')
+    
+    if rows is None:
+        res = run('client_year_weight.sql')
+        if not res.status:
+            return render_template('message.html', title=query['title'], message=res.error_message)
+        
+        rows = res.result
+        
+        cache_obj.set('year_weight_data', rows, timeout=600)
+
     max_weight = max((float(r['year_weight']) for r in rows), default=0) or 1
     total = sum(float(r['year_weight']) for r in rows)
+    
     return render_template('year_weight_chart.html', query=query, rows=rows,
                            max_weight=max_weight, total=total, year=date.today().year)

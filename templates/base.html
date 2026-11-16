@@ -11,7 +11,7 @@
   <a class="brand" href="{{ url_for('main_menu') }}">Автотранспортная компания</a>
   {% if session.get('user_id') %}
   <div class="user">
-    <span>{{ session.get('full_name') }}</span>
+    <span>{{ user_name }}</span>
     <span class="badge">{{ group_names.get(session.get('user_group'), session.get('user_group')) }}</span>
     <a class="btn btn-small" href="{{ url_for('exit_system') }}">Выход</a>
   </div>

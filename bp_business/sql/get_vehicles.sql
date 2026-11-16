@@ -1,0 +1,1 @@
+SELECT vehicle_id AS id, brand || ' (' || reg_number || ')' AS name FROM vehicle;

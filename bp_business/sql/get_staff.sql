@@ -1,0 +1,1 @@
+SELECT staff_id AS id, surname AS name FROM staff;

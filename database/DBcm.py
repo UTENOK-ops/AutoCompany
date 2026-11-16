@@ -23,6 +23,7 @@ class DBContextManager:
         if exc_type:
             print('Ошибка при работе с БД:', exc_val)
             self.conn.rollback()
+            return False
         else:
             self.conn.commit()
         self.cursor.close()

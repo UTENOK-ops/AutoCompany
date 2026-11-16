@@ -1,0 +1,1 @@
+SELECT cargo_id AS id, cargo_name AS name FROM cargo;
